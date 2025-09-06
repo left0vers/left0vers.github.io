@@ -130,7 +130,7 @@ h3 {  font-size: 1em;
         #submission-form label {
             display: block;
             margin-top: 10px;
-            font-weight: regular;
+            font-weight: normal;
         }
         
         #submission-form input {
