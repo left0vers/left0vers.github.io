@@ -11,10 +11,12 @@
 <body>
     <div class="main-wrapper"><h1>Draw in my guestbook✎</h1>
 
+
+        
 <div class="drawing-tools">
+    
     <!-- Color Palette -->
     <div class="tool-group">
-       
             <div class="color-palette">
                 <div onclick="change_color(this)" style="background:#000000" class="color-btn"></div>
                 <div onclick="change_color(this)" style="background:#ffffff" class="color-btn"></div>
@@ -22,16 +24,12 @@
                 <div onclick="change_color(this)" data-halftone="true" class="color-btn halftone-btn"></div>
             </div>
     </div>
-
-
-
-<!-- Brush Size -->
-<div class="tool-group">
-    <input type="range" min="1" max="100" value="8" id="brush-slider">
-    <input type="number" min="1" max="100" value="8" id="brush-input" class="brush-size-input">
-</div>
-
-
+    
+    <!-- Brush Size -->
+    <div class="tool-group">
+        <input type="range" min="1" max="100" value="8" id="brush-slider">
+        <input type="number" min="1" max="100" value="8" id="brush-input" class="brush-size-input">
+    </div>
 
     <!-- Tools -->
    <div class="tool-group">
