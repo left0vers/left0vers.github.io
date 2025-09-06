@@ -1,4 +1,4 @@
-* {box-sizing: border-box;}
+ul* {box-sizing: border-box;}
 
 
 /*<weight>: Use a value from 100 to 900 */
@@ -98,13 +98,11 @@ h3 {  font-size: 1em;
         }
         
         .artist-line {
-            font-weight: bold;
+            font-weight: normal;
             margin: 4px 0;
-            font-size: 14px;
         }
         
         .timestamp {
-            font-size: 11px;
             color: #666;
             margin: 4px 0 0 0;
         }
@@ -309,7 +307,7 @@ input[type="range"]::-moz-range-thumb {
     height: 25px;
     margin-left: 5px;
     text-align: center;
-    font-size: 11px;
+    font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 3px;
     padding: 2px;
