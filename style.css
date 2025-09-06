@@ -21,8 +21,12 @@
 
 body {
   font-family: "Geist Mono", monospace;
+  font-size: 1.2em;
 }
 
+
+h1
+{font-size:2em;}
 
         /* Main responsive layout */
         .main-wrapper {
@@ -43,23 +47,16 @@ body {
         }
 
         .info-section {
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            background-color: none;
             height: fit-content;
         }
 
         .info-section h2 {
             margin-top: 0;
             color: #333;
-            font-size: 18px;
         }
 
         .info-section p, .info-section li {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #666;
         }
         
         canvas {
