@@ -103,48 +103,54 @@ function start(event) {
   event.preventDefault();
 }
 
-function drawHalftoneSquare(centerX, centerY, size) {
-    const patternSize = 8;
-    const pixelSize = Math.max(1, Math.floor(size / patternSize));
-    const totalSize = patternSize * pixelSize;
-    
-    const startX = centerX - totalSize / 2;
-    const startY = centerY - totalSize / 2;
-    
-    const originalComposite = context.globalCompositeOperation;
-    context.globalCompositeOperation = "source-over";
-    context.fillStyle = "#000000";
-    
-    for (let py = 0; py < patternSize; py++) {
-        for (let px = 0; px < patternSize; px++) {
-            if (HALFTONE_PATTERN[py][px] === 1) {
-                const x = startX + px * pixelSize;
-                const y = startY + py * pixelSize;
-                context.fillRect(x, y, pixelSize, pixelSize);
-            }
-        }
-    }
-    
-    context.globalCompositeOperation = originalComposite;
-}
+
+
 
 function drawHalftonePath(x1, y1, x2, y2, size) {
     const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-    const maxGap = size * 0.3;
+    const step = Math.max(1, size / 10); // Smaller steps for smooth drawing
+    const steps = Math.ceil(distance / step);
     
-    if (distance > maxGap) {
-        const steps = Math.ceil(distance / maxGap);
+    context.fillStyle = "#000000";
+    
+    // Draw along the path
+    for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const centerX = x1 + (x2 - x1) * t;
+        const centerY = y1 + (y2 - y1) * t;
         
-        for (let i = 1; i < steps; i++) {
-            const t = i / steps;
-            const x = x1 + (x2 - x1) * t;
-            const y = y1 + (y2 - y1) * t;
-            drawHalftoneSquare(x, y, size);
+        // Draw a circle of halftone pattern around this point
+        const radius = size / 2;
+        const startX = Math.floor(centerX - radius);
+        const endX = Math.ceil(centerX + radius);
+        const startY = Math.floor(centerY - radius);
+        const endY = Math.ceil(centerY + radius);
+        
+        for (let py = startY; py <= endY; py++) {
+            for (let px = startX; px <= endX; px++) {
+                // Check if this pixel is within the brush circle
+                const dx = px - centerX;
+                const dy = py - centerY;
+                const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distanceFromCenter <= radius && px >= 0 && py >= 0 && px < canvas.width && py < canvas.height) {
+                    // Calculate which cell in the 8x8 pattern this pixel belongs to
+                    const patternX = ((px % 8) + 8) % 8; // Handle negative numbers correctly
+                    const patternY = ((py % 8) + 8) % 8;
+                    
+                    // Only draw if the pattern says to draw (1 = black pixel, 0 = transparent)
+                    if (HALFTONE_PATTERN[patternY][patternX] === 1) {
+                        context.fillRect(px, py, 1, 1);
+                    }
+                }
+            }
         }
     }
-    
-    drawHalftoneSquare(x2, y2, size);
 }
+
+
+
+
 
 function draw(event) {
   if (!is_drawing) return;
@@ -480,3 +486,4 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); // Start in draw mode
 });
+
