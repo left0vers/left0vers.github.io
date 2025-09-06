@@ -19,6 +19,10 @@
 }
 
 
+body {
+  font-family: "Geist Mono", monospace;
+}
+
 
         /* Main responsive layout */
         .main-wrapper {
