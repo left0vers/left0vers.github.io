@@ -439,7 +439,7 @@ async function fetchImages() {
         // Format the artist line with optional website
         let artistLine = artistName;
         if (artistWebsite && artistWebsite.startsWith("http")) {
-          artistLine += ` ▪ <a href="${artistWebsite}" target="_blank">website</a>`;
+          artistLine += ` // <a href="${artistWebsite}" target="_blank">website</a>`;
         }
 
         div.innerHTML = `
@@ -488,6 +488,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); // Start in draw mode
 });
+
 
 
 
