@@ -30,14 +30,14 @@ const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEE
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID + "/formResponse";
 
 const HALFTONE_PATTERN = [
-    [1,1,0,0,0,0,0,0,1,1],
-    [1,1,0,0,0,0,0,0,1,1],
-    [0,0,0,0,0,0,0,0,0,0],
+    [1,1,0,0,0,1,1,0,0,0],
+    [1,1,0,0,0,1,1,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,1,1,0,0,1,1,0,0],
     [0,0,1,1,0,0,1,1,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0]
 ];
@@ -488,5 +488,6 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); // Start in draw mode
 });
+
 
 
