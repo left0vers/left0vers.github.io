@@ -25,7 +25,6 @@ const DISPLAY_IMAGES = true;
         
 */
 
-
 const CLIENT_ID = "b4fb95e0edc434c";
 const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/export?format=csv";
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID + "/formResponse";
@@ -44,9 +43,6 @@ const HALFTONE_PATTERN = [
 // Special identifier for halftone "color"
 const HALFTONE_COLOR = "HALFTONE_PATTERN";
 
-
-
-
 let canvas = document.getElementById("drawboxcanvas");
 let context = canvas.getContext("2d");
 context.fillStyle = "white";
@@ -57,7 +53,6 @@ let start_index = -1;
 let stroke_color = "black";
 let stroke_width = "18";   /*brush starting size - should match "stroke_width = this.value" in html*/
 let is_drawing = false;
-
 
 let lastX = 0;
 let lastY = 0;
@@ -70,9 +65,6 @@ function change_color(element) {
         stroke_color = HALFTONE_COLOR;
     }
 }
-
-
-
 
 function updateBrushSize(value, source) {
     stroke_width = value;
@@ -98,11 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); // Your existing code
 });
 
-
-
-
-
-
 function start(event) {
   is_drawing = true;
   const x = getX(event);
@@ -115,29 +102,6 @@ function start(event) {
   context.moveTo(x, y);
   event.preventDefault();
 }
-
-
-
-
-function draw(event) {
-  if (!is_drawing) return;
-  
-  const currentX = getX(event);
-  const currentY = getY(event);
-  
-  // Handle eraser vs drawing (this needs to come first)
-  if (is_erasing) {
-    context.globalCompositeOperation = "destination-out";
-    context.strokeStyle = "rgba(0,0,0,1)"; // For eraser, color doesn't matter but we need something
-  } else {
-    context.globalCompositeOperation = "source-over";
-    context.strokeStyle = stroke_color;
-  }
-  
-  context.lineWidth = stroke_width;
-
-
-
 
 function drawHalftoneSquare(centerX, centerY, size) {
     const patternSize = 8;
@@ -182,12 +146,32 @@ function drawHalftonePath(x1, y1, x2, y2, size) {
     drawHalftoneSquare(x2, y2, size);
 }
 
+function draw(event) {
+  if (!is_drawing) return;
+  
+  const currentX = getX(event);
+  const currentY = getY(event);
+  
+  // Handle eraser vs drawing (this needs to come first)
+  if (is_erasing) {
+    context.globalCompositeOperation = "destination-out";
+    context.strokeStyle = "rgba(0,0,0,1)"; // For eraser, color doesn't matter but we need something
+  } else {
+    context.globalCompositeOperation = "source-over";
+    context.strokeStyle = stroke_color;
+  }
+  
+  context.lineWidth = stroke_width;
 
+  drawSquarePath(lastX, lastY, currentX, currentY, stroke_width);
 
+  // Update last position
+  lastX = currentX;
+  lastY = currentY;
+  
+  event.preventDefault();
+}
 
-
-	
-	
 function drawSquarePath(x1, y1, x2, y2, size) {
     // Check if we're using halftone "color"
     if (stroke_color === HALFTONE_COLOR) {
@@ -224,53 +208,6 @@ function drawSquarePath(x1, y1, x2, y2, size) {
     }
 }
 
-
-
-
-	
-  // Update last position
-  lastX = currentX;
-  lastY = currentY;
-  
-  event.preventDefault();
-}
-
-
-
-
-function drawSquarePath(x1, y1, x2, y2, size) {
-  const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-  const maxGap = size * 0.6; // Only fill gaps if they're bigger than 80% of square size
-  
-  if (distance > maxGap) {
-    const steps = Math.ceil(distance / maxGap);
-    
-    for (let i = 1; i < steps; i++) { // Skip i=0 and i=steps to avoid duplicates
-      const t = i / steps;
-      const x = x1 + (x2 - x1) * t;
-      const y = y1 + (y2 - y1) * t;
-      
-      if (is_erasing) {
-        context.clearRect(x - size/2, y - size/2, size, size);
-      } else {
-        context.fillStyle = stroke_color;
-        context.fillRect(x - size/2, y - size/2, size, size);
-      }
-    }
-  }
-  
-  // Always draw the current square
-  if (is_erasing) {
-    context.clearRect(x2 - size/2, y2 - size/2, size, size);
-  } else {
-    context.fillStyle = stroke_color;
-    context.fillRect(x2 - size/2, y2 - size/2, size, size);
-  }
-}
-
-
-
-
 function stop(event) {
   if (!is_drawing) return;
   context.stroke();
@@ -284,10 +221,6 @@ function stop(event) {
   start_index++;
   event.preventDefault();
 }
-
-
-
-
 
 function getX(event) {
   const rect = canvas.getBoundingClientRect();
@@ -315,9 +248,6 @@ function getY(event) {
   }
 }
 
-
-
-
 canvas.addEventListener("touchstart", function(e) {
     e.preventDefault();
     start(e);
@@ -338,10 +268,6 @@ canvas.addEventListener("mousedown", start, false);
 canvas.addEventListener("mousemove", draw, false);
 canvas.addEventListener("mouseup", stop, false);
 canvas.addEventListener("mouseout", stop, false);
-
-
-
-
 
 function Restore() {
   if (start_index <= 0) {
@@ -494,8 +420,6 @@ async function fetchImages() {
 		const day = String(date.getDate()).padStart(2, '0');
 		const timestamp = `${year}.${month}.${day}`;
 
-
-		
       const imgUrl = columns[1].trim().replace(/"/g, "");
       const artistName = columns[2] ? columns[2].trim().replace(/"/g, "") : "Anonymous";
       const artistWebsite = columns[3] ? columns[3].trim().replace(/"/g, "") : "";
@@ -518,8 +442,6 @@ async function fetchImages() {
         gallery.appendChild(div);
         console.log("Added image to gallery");
       }
-
-		
     });
   } catch (error) {
     console.error("Error fetching images:", error);
@@ -528,9 +450,6 @@ async function fetchImages() {
 }
 
 fetchImages();
-
-
-
 
 // Eraser functionality
 let is_erasing = false;
@@ -561,31 +480,3 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); // Start in draw mode
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
