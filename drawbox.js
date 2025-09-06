@@ -30,14 +30,16 @@ const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEE
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID + "/formResponse";
 
 const HALFTONE_PATTERN = [
-    [1,1,0,0,1,1,0,0],
-    [1,1,0,0,1,1,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,1,1,0,0,1,1],
-    [0,0,1,1,0,0,1,1],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0]
+    [1,1,0,0,0,0,0,0,1,1],
+    [1,1,0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,1,1,0,0,1,1,0,0],
+    [0,0,1,1,0,0,1,1,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0]
 ];
 
 // Special identifier for halftone "color"
@@ -135,8 +137,8 @@ function drawHalftonePath(x1, y1, x2, y2, size) {
                 
                 if (distanceFromCenter <= radius && px >= 0 && py >= 0 && px < canvas.width && py < canvas.height) {
                     // Calculate which cell in the 8x8 pattern this pixel belongs to
-                    const patternX = ((px % 8) + 8) % 8; // Handle negative numbers correctly
-                    const patternY = ((py % 8) + 8) % 8;
+                    const patternX = ((px % 10) + 10) % 10;
+					const patternY = ((py % 10) + 10) % 10; 
                     
                     // Only draw if the pattern says to draw (1 = black pixel, 0 = transparent)
                     if (HALFTONE_PATTERN[patternY][patternX] === 1) {
@@ -486,4 +488,5 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); // Start in draw mode
 });
+
 
