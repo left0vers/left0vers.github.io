@@ -343,8 +343,7 @@ input[type="range"]::-moz-range-thumb {
     }
 
     .halftone-btn {
-           background-size: 3px 3px !important;
-            background-position: 0 0, 0 1.5px, 1.5px -1.5px, -1.5px 0px !important;
+        background-size: 12px 20px; /* Double the size */
     }
     
     .tool-group label {
