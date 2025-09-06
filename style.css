@@ -1,0 +1,354 @@
+* {box-sizing: border-box;}
+        
+        /* Main responsive layout */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .drawbox-section {
+            min-width: 0;
+        }
+
+        .info-section {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            height: fit-content;
+        }
+
+        .info-section h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .info-section p, .info-section li {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #666;
+        }
+        
+        canvas {
+            border: 1px solid black;
+            cursor: crosshair;
+        }
+        
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .image-container {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            max-width: 200px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .artist-line {
+            font-weight: bold;
+            margin: 4px 0;
+            font-size: 14px;
+        }
+        
+        .timestamp {
+            font-size: 11px;
+            color: #666;
+            margin: 4px 0 0 0;
+        }
+        
+        .artist-line a {
+            font-weight: normal;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .artist-line a:hover {
+            text-decoration: underline;
+        }
+        
+        #submission-form {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+                 width: 500px; /* Same as canvas width */
+                    max-width: 100%; /* Responsive on smaller screens */
+        }
+        
+        #submission-form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        #submission-form input {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        
+        #submission-form button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .info-section {
+                order: -1;
+            }
+            
+            canvas {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main-wrapper {
+                padding: 10px;
+            }
+            
+            canvas {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+
+
+
+
+.drawing-tools {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin: 0;
+    padding: 10px 0;
+    border: none;
+    border-radius: 0px;
+    background-color: none;
+
+
+        width: 500px; /* Same as canvas width */
+        max-width: 100%;
+        justify-content: space-between;
+}
+
+.tool-group {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 1; /* Prevent groups from shrinking too much */
+}
+
+.tool-group label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #555;
+    margin: 0;
+}
+
+
+
+/* Simple slider customization - bigger cursor, smaller width */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 140px; /* Make slider narrower */
+    height: 10px;
+    background: white;
+    outline: none;
+    border: 1px solid black;
+        border-radius: 5px;
+}
+
+/* Bigger cursor for Webkit browsers (Chrome, Safari, Edge) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; /* Bigger cursor */
+    height: 20px; /* Bigger cursor */
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Bigger cursor for Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 20px; /* Bigger cursor */
+    height: 20px; /* Bigger cursor */
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+
+
+
+
+/* Add this CSS for the active tool state */
+.tool-btn.active-tool {
+    background-color: #e0e0ff;
+    color: black;
+    border-color: #6040ff;
+}
+
+.tool-btn.active-tool:hover {
+    background-color: #bebeed;
+}
+
+
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(3, 25px); /* 3 columns */
+    grid-template-rows: repeat(2, 25px);    /* 2 rows */
+    gap: 0;  /* No space between swatches */
+    width: 75px;  /* Force container width */
+    height: 50px; /* Force container height */
+}
+
+.color-btn {
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    /* Remove border-radius for square swatches with no gaps */
+    border-radius: 0;
+        display: block;  
+}
+
+.color-btn:hover {
+    transform: scale(1.05);
+    z-index: 1; /* Bring hovered button above others */
+}
+
+
+
+
+
+
+.brush-size-input {
+    width: 40px;
+    height: 25px;
+    margin-left: 5px;
+    text-align: center;
+    font-size: 11px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+/* Make it smaller on mobile */
+@media (max-width: 600px) {
+    .brush-size-input {
+        width: 35px;
+        height: 20px;
+        font-size: 10px;
+    }
+}
+
+
+
+
+
+.tool-btn {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: -1px;  /* Overlap borders */
+    touch-action: manipulation;
+}
+
+/* Bring hovered/active buttons to front */
+ .tool-btn:hover,
+.tool-btn.active-tool {
+    position: relative;
+    z-index: 1;
+}
+
+
+.tool-btn:hover {
+    background-color: #C1C1FF;
+}
+
+/* Make color buttons and other elements smaller on mobile if needed */
+@media (max-width: 600px) {
+       .drawing-tools {
+        flex-wrap: wrap; /* Allow wrapping on very small screens */
+    /* justify-content: space-between inherited from main rule */
+    }
+    
+    .tool-group {
+        gap: 0px;
+        flex-shrink: 1;
+    }
+    
+    .color-palette {
+        grid-template-columns: repeat(3, 20px);
+        grid-template-rows: repeat(2, 20px);
+        width: 60px;
+        height: 40px;
+    }
+    
+    .color-btn {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .tool-group label {
+        font-size: 11px;
+    }
+    
+    input[type="range"] {
+        width: 60px; /* Make slider even smaller on mobile */
+     border: 1px solid black;
+            
+    }
+}
+
+
+#drawboxcanvas {
+    touch-action: none; /* Prevents scrolling/zooming on the canvas */
+}
+
+
+
