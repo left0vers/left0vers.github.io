@@ -30,6 +30,11 @@ h1
 {font-size:2.4em;
 font-style: normal;}
 
+h3 {  font-size: 1em;
+  font-size: 1em;
+    opacity:.4;
+   }
+
         /* Main responsive layout */
         .main-wrapper {
             max-width: 1200px;
@@ -41,7 +46,7 @@ font-style: normal;}
             display: grid;
             grid-template-columns: 1fr 300px;
             gap: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
         .drawbox-section {
@@ -51,7 +56,7 @@ font-style: normal;}
         .info-section {
             background-color: none;
             height: fit-content;
-          margin-bottom: 40px;
+          margin-bottom: 60px;
         }
 
         .info-section h2 {
