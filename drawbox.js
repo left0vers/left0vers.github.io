@@ -26,17 +26,26 @@ const DISPLAY_IMAGES = true;
 */
 
 
-
-
-
-
-
-
-
-
 const CLIENT_ID = "b4fb95e0edc434c";
 const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/export?format=csv";
 const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID + "/formResponse";
+
+const HALFTONE_PATTERN = [
+    [1,1,0,0,1,1,0,0],
+    [1,1,0,0,1,1,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,1,1,0,0,1,1],
+    [0,0,1,1,0,0,1,1],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0]
+];
+
+// Special identifier for halftone "color"
+const HALFTONE_COLOR = "HALFTONE_PATTERN";
+
+
+
 
 let canvas = document.getElementById("drawboxcanvas");
 let context = canvas.getContext("2d");
@@ -54,7 +63,12 @@ let lastX = 0;
 let lastY = 0;
 
 function change_color(element) {
-  stroke_color = element.style.background;
+    stroke_color = element.style.background;
+    
+    // Check if this is the halftone color
+    if (element.getAttribute('data-halftone') === 'true') {
+        stroke_color = HALFTONE_COLOR;
+    }
 }
 
 
@@ -125,10 +139,91 @@ function draw(event) {
 
 
 
+function drawHalftoneSquare(centerX, centerY, size) {
+    const patternSize = 8;
+    const pixelSize = Math.max(1, Math.floor(size / patternSize));
+    const totalSize = patternSize * pixelSize;
+    
+    const startX = centerX - totalSize / 2;
+    const startY = centerY - totalSize / 2;
+    
+    const originalComposite = context.globalCompositeOperation;
+    context.globalCompositeOperation = "source-over";
+    context.fillStyle = "#000000";
+    
+    for (let py = 0; py < patternSize; py++) {
+        for (let px = 0; px < patternSize; px++) {
+            if (HALFTONE_PATTERN[py][px] === 1) {
+                const x = startX + px * pixelSize;
+                const y = startY + py * pixelSize;
+                context.fillRect(x, y, pixelSize, pixelSize);
+            }
+        }
+    }
+    
+    context.globalCompositeOperation = originalComposite;
+}
+
+function drawHalftonePath(x1, y1, x2, y2, size) {
+    const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    const maxGap = size * 0.3;
+    
+    if (distance > maxGap) {
+        const steps = Math.ceil(distance / maxGap);
+        
+        for (let i = 1; i < steps; i++) {
+            const t = i / steps;
+            const x = x1 + (x2 - x1) * t;
+            const y = y1 + (y2 - y1) * t;
+            drawHalftoneSquare(x, y, size);
+        }
+    }
+    
+    drawHalftoneSquare(x2, y2, size);
+}
+
+
+
+
 
 	
 	
- drawSquarePath(lastX, lastY, currentX, currentY, stroke_width);
+function drawSquarePath(x1, y1, x2, y2, size) {
+    // Check if we're using halftone "color"
+    if (stroke_color === HALFTONE_COLOR) {
+        drawHalftonePath(x1, y1, x2, y2, size);
+        return;
+    }
+    
+    // Original square path code for regular colors
+    const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    const maxGap = size * 0.6;
+    
+    if (distance > maxGap) {
+        const steps = Math.ceil(distance / maxGap);
+        
+        for (let i = 1; i < steps; i++) {
+            const t = i / steps;
+            const x = x1 + (x2 - x1) * t;
+            const y = y1 + (y2 - y1) * t;
+            
+            if (is_erasing) {
+                context.clearRect(x - size/2, y - size/2, size, size);
+            } else {
+                context.fillStyle = stroke_color;
+                context.fillRect(x - size/2, y - size/2, size, size);
+            }
+        }
+    }
+    
+    if (is_erasing) {
+        context.clearRect(x2 - size/2, y2 - size/2, size, size);
+    } else {
+        context.fillStyle = stroke_color;
+        context.fillRect(x2 - size/2, y2 - size/2, size, size);
+    }
+}
+
 
 
 
@@ -466,6 +561,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); // Start in draw mode
 });
+
 
 
 
