@@ -26,7 +26,8 @@ body {
 
 
 h1
-{font-size:2em;}
+{font-size:2em;
+font-weight:medium;}
 
         /* Main responsive layout */
         .main-wrapper {
