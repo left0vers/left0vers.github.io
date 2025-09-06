@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRAWBOX</title>
+    
+<link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="main-wrapper"><h1>Draw in my guestbook✎</h1>
+
+<div class="drawing-tools">
+    <!-- Color Palette -->
+    <div class="tool-group">
+       
+        <div class="color-palette">
+            <div onclick="change_color(this)" style="background:#000000" class="color-btn"></div>
+            <div onclick="change_color(this)" style="background:#ffffff" class="color-btn"></div>
+            <div onclick="change_color(this)" style="background:#B9FFEE" class="color-btn"></div>
+        <div onclick="change_color(this)" style="background:#0066FF" class="color-btn"></div>
+        <div onclick="change_color(this)" style="background:#FFD700" class="color-btn"></div>
+        <div onclick="change_color(this)" style="background:#FF69B4" class="color-btn"></div>
+        </div>
+    </div>
+
+
+
+<!-- Brush Size -->
+<div class="tool-group">
+    <input type="range" min="1" max="100" value="8" id="brush-slider">
+    <input type="number" min="1" max="100" value="8" id="brush-input" class="brush-size-input">
+</div>
+
+
+
+    <!-- Tools -->
+   <div class="tool-group">
+    <button onclick="setDrawMode()" id="draw-btn" class="tool-btn active-tool">
+        <img src="assets/icon-pencil.webp" alt="Draw" class="tool-icon">
+    </button>
+    <button onclick="setEraseMode()" id="erase-btn" class="tool-btn">
+        <img src="assets/icon-eraser.webp" alt="Erase" class="tool-icon">
+    </button>
+    <button onclick="Restore()" class="tool-btn">
+        <img src="assets/icon-undo.webp" alt="Undo" class="tool-icon">
+    </button>
+    <button onclick="Clear()" class="tool-btn">
+        <img src="assets/icon-clear-trash.webp" alt="Clear" class="tool-icon">
+    </button>
+</div>
+</div>
+
+
+
+        
+        <!-- drawing canvas -->
+        <div class="content-grid">
+            <div class="drawbox-section">
+                <canvas id="drawboxcanvas" width="500" height="500"></canvas>
+
+
+                
+                <div id="submission-form">
+                  
+                    
+                    <label for="artist-name">Your Name (required)</label>
+                    <input type="text" id="artist-name" required>
+                    
+                    <label for="artist-website">Your website (optional) including the https://</label>
+                    <input type="text" id="artist-website" placeholder="https://yoursite.com">
+                    
+                    <label for="spam-check">Spam check: please enter the word "guestbook" below. 🤖🔨</label>
+                    <input type="text" id="spam-check" required>
+                    
+                    <button id="submit">SUBMIT</button>
+                </div>
+                <p id="status"></p>
+            </div>
+            
+            <div class="info-section">
+                How to use:
+                <ul>
+                    <li>Draw with your mouse or finger</li>
+                    <li>Move the ⬤ horizontal slider  to adjust the brush size</li>
+                    <li>Type in your name and website (optional) and press SUBMIT</li>
+                </ul>
+                Your drawing will appear in the gallery below, after it is approved by this thing
+                <p><img src="/media/18-Boogerbear-Jail.gif"></p>
+                Please be respectful. <3 Low quality submissions (spam, empty canvas, etc) will be gently held but deleted.
+               
+            </div>
+        </div>
+        
+        <h1>Submitted Drawings ☻</h1>
+        <div id="gallery">Loading images...</div>
+    </div>
+    
+    <script src="drawbox.js"></script>
+</body>
+</html>
