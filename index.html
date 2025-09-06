@@ -11,17 +11,10 @@
 <body>
     <div class="main-wrapper"><h1>Draw in my guestbook✎</h1>
 
-
-
-
-        
-        
-<div class="content-grid">
-
-
 <div class="drawing-tools">
     <!-- Color Palette -->
     <div class="tool-group">
+       
             <div class="color-palette">
                 <div onclick="change_color(this)" style="background:#000000" class="color-btn"></div>
                 <div onclick="change_color(this)" style="background:#ffffff" class="color-btn"></div>
@@ -30,36 +23,38 @@
             </div>
     </div>
 
-    <!-- Brush Size -->
-    <div class="tool-group">
-        <input type="range" min="1" max="100" value="8" id="brush-slider">
-        <input type="number" min="1" max="100" value="8" id="brush-input" class="brush-size-input">
-    </div>
-    
-    
-    
-        <!-- Tools -->
-       <div class="tool-group">
-        <button onclick="setDrawMode()" id="draw-btn" class="tool-btn active-tool">
-            <img src="assets/icon-pencil.webp" alt="Draw" class="tool-icon">
-        </button>
-        <button onclick="setEraseMode()" id="erase-btn" class="tool-btn">
-            <img src="assets/icon-eraser.webp" alt="Erase" class="tool-icon">
-        </button>
-        <button onclick="Restore()" class="tool-btn">
-            <img src="assets/icon-undo.webp" alt="Undo" class="tool-icon">
-        </button>
-        <button onclick="Clear()" class="tool-btn">
-            <img src="assets/icon-clear-trash.webp" alt="Clear" class="tool-icon">
-        </button>
-    </div>
+
+
+<!-- Brush Size -->
+<div class="tool-group">
+    <input type="range" min="1" max="100" value="8" id="brush-slider">
+    <input type="number" min="1" max="100" value="8" id="brush-input" class="brush-size-input">
 </div>
 
 
 
+    <!-- Tools -->
+   <div class="tool-group">
+    <button onclick="setDrawMode()" id="draw-btn" class="tool-btn active-tool">
+        <img src="assets/icon-pencil.webp" alt="Draw" class="tool-icon">
+    </button>
+    <button onclick="setEraseMode()" id="erase-btn" class="tool-btn">
+        <img src="assets/icon-eraser.webp" alt="Erase" class="tool-icon">
+    </button>
+    <button onclick="Restore()" class="tool-btn">
+        <img src="assets/icon-undo.webp" alt="Undo" class="tool-icon">
+    </button>
+    <button onclick="Clear()" class="tool-btn">
+        <img src="assets/icon-clear-trash.webp" alt="Clear" class="tool-icon">
+    </button>
+</div>
+</div>
 
 
-            <!-- drawing canvas -->
+
+        
+        <!-- drawing canvas -->
+        <div class="content-grid">
             <div class="drawbox-section">
                 <canvas id="drawboxcanvas" width="500" height="500"></canvas>
 
