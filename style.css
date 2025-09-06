@@ -28,7 +28,7 @@ body {
 
 h1
 {font-size:2em;
-font-weight:regular;}
+font-weight:light;}
 
         /* Main responsive layout */
         .main-wrapper {
@@ -116,9 +116,9 @@ font-weight:regular;}
         #submission-form {
             margin: 20px 0;
             padding: 15px;
-            border: 2px solid #ccc;
+            border: none;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            background-color: #FFC5DB;
                  width: 500px; /* Same as canvas width */
                     max-width: 100%; /* Responsive on smaller screens */
         }
