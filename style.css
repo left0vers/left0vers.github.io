@@ -1,5 +1,25 @@
 * {box-sizing: border-box;}
-        
+
+
+/*<weight>: Use a value from 100 to 900 */
+/* <uniquifier>: Use a unique and descriptive class name*/
+
+.geist-<uniquifier> {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+.geist-mono-<uniquifier> {
+  font-family: "Geist Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+
+
         /* Main responsive layout */
         .main-wrapper {
             max-width: 1200px;
