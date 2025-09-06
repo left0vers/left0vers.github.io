@@ -51,6 +51,7 @@ font-style: normal;}
         .info-section {
             background-color: none;
             height: fit-content;
+          margin-bottom: 40px;
         }
 
         .info-section h2 {
