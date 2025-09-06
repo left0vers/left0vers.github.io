@@ -44,22 +44,24 @@
         }
         
         #gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+            gap: 15px;
+            margin-top: 20px;
         }
         
         .image-container {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 10px;
-            max-width: 200px;
+                    width: 100%; /* Use full width of grid column */
+                    max-width: none; /* Remove the 200px limit */                
             text-align: center;
             background-color: #f9f9f9;
         }
         
         .image-container img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
             display: block;
             border-radius: 4px;
@@ -320,6 +322,13 @@ input[type="range"]::-moz-range-thumb {
 
 /* Make color buttons and other elements smaller on mobile if needed */
 @media (max-width: 600px) {
+
+    #gallery {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 10px;
+    }
+
+        
        .drawing-tools {
         flex-wrap: wrap; /* Allow wrapping on very small screens */
     /* justify-content: space-between inherited from main rule */
