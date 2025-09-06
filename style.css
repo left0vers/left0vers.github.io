@@ -236,12 +236,25 @@ input[type="range"]::-moz-range-thumb {
 
 .color-palette {
     display: grid;
-    grid-template-columns: repeat(3, 25px); /* 3 columns */
+    grid-template-columns: repeat(2, 25px); /* 3 columns */
     grid-template-rows: repeat(2, 25px);    /* 2 rows */
     gap: 0;  /* No space between swatches */
-    width: 75px;  /* Force container width */
+    width: 50px;  /* Force container width */
     height: 50px; /* Force container height */
 }
+
+
+.halftone-btn {
+    background: 
+        linear-gradient(45deg, #000 25%, transparent 25%), 
+        linear-gradient(-45deg, #000 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #000 75%), 
+        linear-gradient(-45deg, transparent 75%, #000 75%) !important;
+    background-size: 4px 4px !important;
+    background-position: 0 0, 0 2px, 2px -2px, -2px 0px !important;
+    position: relative;
+}
+
 
 .color-btn {
     width: 25px;
@@ -323,15 +336,20 @@ input[type="range"]::-moz-range-thumb {
     }
     
     .color-palette {
-        grid-template-columns: repeat(3, 20px);
+        grid-template-columns: repeat(2, 20px);
         grid-template-rows: repeat(2, 20px);
-        width: 60px;
+        width: 40px;
         height: 40px;
     }
     
     .color-btn {
         width: 20px;
         height: 20px;
+    }
+
+    .halftone-btn {
+           background-size: 3px 3px !important;
+            background-position: 0 0, 0 1.5px, 1.5px -1.5px, -1.5px 0px !important;
     }
     
     .tool-group label {
