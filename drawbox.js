@@ -42,7 +42,7 @@ const HALFTONE_PATTERN = [
     [0,0,0,0,0,0]   // oooooo
 ];
 
-// Special identifier for halftone "color"
+
 const HALFTONE_COLOR = "HALFTONE_PATTERN";
 
 let canvas = document.getElementById("drawboxcanvas");
@@ -61,17 +61,15 @@ let lastY = 0;
 
 function change_color(element) {
     stroke_color = element.style.background;
-    
-    // Check if this is the halftone color
     if (element.getAttribute('data-halftone') === 'true') {
         stroke_color = HALFTONE_COLOR;
     }
 }
 
+
 function updateBrushSize(value, source) {
     stroke_width = value;
     
-    // Update both inputs to stay in sync
     if (source === 'slider') {
         document.getElementById('brush-input').value = value;
     } else if (source === 'input') {
@@ -79,7 +77,8 @@ function updateBrushSize(value, source) {
     }
 }
 
-// Add event listeners when page loads
+
+
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('brush-slider').addEventListener('input', function() {
         updateBrushSize(this.value, 'slider');
@@ -89,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateBrushSize(this.value, 'input');
     });
     
-    setDrawMode(); // Your existing code
+    setDrawMode(); 
 });
 
 function start(event) {
@@ -110,18 +109,18 @@ function start(event) {
 
 function drawHalftonePath(x1, y1, x2, y2, size) {
     const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-    const step = Math.max(1, size / 10); // Smaller steps for smooth drawing
+    const step = Math.max(1, size / 10);
     const steps = Math.ceil(distance / step);
     
     context.fillStyle = "#000000";
     
-    // Draw along the path
+    
     for (let i = 0; i <= steps; i++) {
         const t = i / steps;
         const centerX = x1 + (x2 - x1) * t;
         const centerY = y1 + (y2 - y1) * t;
         
-        // Draw a circle of halftone pattern around this point
+        
         const radius = size / 2;
         const startX = Math.floor(centerX - radius);
         const endX = Math.ceil(centerX + radius);
@@ -130,17 +129,14 @@ function drawHalftonePath(x1, y1, x2, y2, size) {
         
         for (let py = startY; py <= endY; py++) {
             for (let px = startX; px <= endX; px++) {
-                // Check if this pixel is within the brush circle
                 const dx = px - centerX;
                 const dy = py - centerY;
                 const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
                 
                 if (distanceFromCenter <= radius && px >= 0 && py >= 0 && px < canvas.width && py < canvas.height) {
-                    // Calculate which cell in the 8x8 pattern this pixel belongs to
                     const patternX = ((px % 6) + 6) % 6;  // replace these 3 with thewidth (6x10 would be x6, y10)
 					const patternY = ((py % 10) + 10) % 10;  // height
                     
-                    // Only draw if the pattern says to draw (1 = black pixel, 0 = transparent)
                     if (HALFTONE_PATTERN[patternY][patternX] === 1) {
                         context.fillRect(px, py, 1, 1);
                     }
@@ -160,10 +156,9 @@ function draw(event) {
   const currentX = getX(event);
   const currentY = getY(event);
   
-  // Handle eraser vs drawing (this needs to come first)
   if (is_erasing) {
     context.globalCompositeOperation = "destination-out";
-    context.strokeStyle = "rgba(0,0,0,1)"; // For eraser, color doesn't matter but we need something
+    context.strokeStyle = "rgba(0,0,0,1)"; 
   } else {
     context.globalCompositeOperation = "source-over";
     context.strokeStyle = stroke_color;
@@ -173,7 +168,7 @@ function draw(event) {
 
   drawSquarePath(lastX, lastY, currentX, currentY, stroke_width);
 
-  // Update last position
+
   lastX = currentX;
   lastY = currentY;
   
@@ -181,16 +176,14 @@ function draw(event) {
 }
 
 function drawSquarePath(x1, y1, x2, y2, size) {
-    // Check if we're using halftone "color"
     if (stroke_color === HALFTONE_COLOR) {
         drawHalftonePath(x1, y1, x2, y2, size);
         return;
     }
     
-    // Original square path code for regular colors
+
     const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     const maxGap = size * 0.6;
-    
     if (distance > maxGap) {
         const steps = Math.ceil(distance / maxGap);
         
@@ -221,8 +214,8 @@ function stop(event) {
   context.stroke();
   context.closePath();
   is_drawing = false;
-  
-  // Reset composite operation to normal after drawing
+
+	
   context.globalCompositeOperation = "source-over";
   
   restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height));
@@ -232,20 +225,18 @@ function stop(event) {
 
 function getX(event) {
   const rect = canvas.getBoundingClientRect();
-  const scaleX = canvas.width / rect.width; // Account for CSS scaling
+  const scaleX = canvas.width / rect.width;
   
   if (event.clientX !== undefined) {
-    // Mouse event
     return (event.clientX - rect.left) * scaleX;
   } else {
-    // Touch event
     return (event.targetTouches[0].clientX - rect.left) * scaleX;
   }
 }
 
 function getY(event) {
   const rect = canvas.getBoundingClientRect();
-  const scaleY = canvas.height / rect.height; // Account for CSS scaling
+  const scaleY = canvas.height / rect.height; 
   
   if (event.clientY !== undefined) {
     // Mouse event
@@ -271,7 +262,7 @@ canvas.addEventListener("touchend", function(e) {
     stop(e);
 }, { passive: false });
 
-// Keep the mouse events as they were
+
 canvas.addEventListener("mousedown", start, false);
 canvas.addEventListener("mousemove", draw, false);
 canvas.addEventListener("mouseup", stop, false);
@@ -312,12 +303,12 @@ document.getElementById("submit").addEventListener("click", async function () {
   const submitButton = document.getElementById("submit");
   const statusText = document.getElementById("status");
   
-  // Get the form values
+
   const artistName = document.getElementById("artist-name").value.trim();
   const artistWebsite = document.getElementById("artist-website").value.trim();
   const spamCheck = document.getElementById("spam-check").value.trim();
   
-  // Check if required fields are filled
+
   if (!artistName) {
     alert("Please enter your name!");
     return;
@@ -349,7 +340,7 @@ document.getElementById("submit").addEventListener("click", async function () {
     const imageUrl = data.data.link;
     console.log("Uploaded image URL:", imageUrl);
 
-    // Create the submission data with name and website
+
     let submissionData = imageUrl;
     if (artistName) {
       submissionData += " | " + artistName;
@@ -421,7 +412,7 @@ async function fetchImages() {
       }
 
       const rawTimestamp = columns[0].trim();
-		// Format timestamp from "8/26/2025 23:37:57" to "2025.08.26"
+		// Timestap formatting "2025.08.26"
 		const date = new Date(rawTimestamp);
 		const year = date.getFullYear();
 		const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -436,7 +427,7 @@ async function fetchImages() {
         const div = document.createElement("div");
         div.classList.add("image-container");
 
-        // Format the artist line with optional website
+		  
         let artistLine = artistName;
         if (artistWebsite && artistWebsite.startsWith("http")) {
           artistLine += ` // <a href="${artistWebsite}" target="_blank">website</a>`;
@@ -459,35 +450,39 @@ async function fetchImages() {
 
 fetchImages();
 
-// Eraser functionality
+
+
+
 let is_erasing = false;
 
 function setDrawMode() {
     is_erasing = false;
     
-    // Update button styles
+   
+	
     document.getElementById("draw-btn").classList.add("active-tool");
     document.getElementById("erase-btn").classList.remove("active-tool");
     
-    // Update cursor
+    
     canvas.style.cursor = "crosshair";
 }
 
 function setEraseMode() {
     is_erasing = true;
     
-    // Update button styles
+    
     document.getElementById("draw-btn").classList.remove("active-tool");
     document.getElementById("erase-btn").classList.add("active-tool");
     
-    // Update cursor
+   
     canvas.style.cursor = "grab";
 }
 
-// Initialize draw mode on page load
+
 document.addEventListener("DOMContentLoaded", function() {
-    setDrawMode(); // Start in draw mode
+    setDrawMode(); 
 });
+
 
 
 
