@@ -84,13 +84,12 @@ h3 {  font-size: 1em;
         }
         
         .image-container {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 10px;
+            border: none;
+            padding: 0px;
             width: 100%; 
             max-width: none;            
-            text-align: center;
-            background-color: #f9f9f9;
+            text-align: left;
+            background-color: none;
             box-sizing: border-box;
         }
         
