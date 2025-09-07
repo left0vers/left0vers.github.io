@@ -71,6 +71,8 @@ h3 {  font-size: 1em;
         canvas {
             border: 1px solid black;
             cursor: crosshair;
+          display:block;
+          margin:0;
         }
         
         #gallery {
