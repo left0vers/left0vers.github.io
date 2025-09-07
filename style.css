@@ -369,7 +369,7 @@ input[type="range"]::-moz-range-thumb {
 @media (max-width: 600px) {
 
     #gallery {
-        grid-template-columns: 1fr; /* how many columns */
+        grid-template-columns: repeat(2, 1fr); /* how many columns */
         gap: 10px;
     }
 
