@@ -79,9 +79,9 @@ h3 {  font-size: 1em;
         #gallery {
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* how many columns */
-            gap: 15px;
+            column-gap: 16px;
+            row-gap: 32px;
             margin-top: 20px;
-            margin-bottom:40px;
         }
         
         .image-container {
@@ -370,7 +370,8 @@ input[type="range"]::-moz-range-thumb {
 
     #gallery {
         grid-template-columns: repeat(2, 1fr); /* how many columns */
-        gap: 10px;
+        column-gap: 10px;
+        row-gap:20px;
     }
 
         
