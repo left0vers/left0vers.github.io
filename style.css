@@ -368,7 +368,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
     .content-grid {
         grid-template-columns: 1fr;
     }
