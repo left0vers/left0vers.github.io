@@ -78,10 +78,12 @@ h3 {  font-size: 1em;
         
         #gallery {
             display: grid;
+            padding: 0 20px;
             grid-template-columns: repeat(4, 1fr); /* how many columns */
             column-gap: 16px;
             row-gap: 32px;
             margin-top: 20px;
+          max-width:none;
         }
         
         .image-container {
@@ -372,6 +374,10 @@ input[type="range"]::-moz-range-thumb {
         grid-template-columns: repeat(2, 1fr); /* how many columns */
         column-gap: 10px;
         row-gap:20px;
+    }
+
+    .gallery-wrapper {
+        padding: 0 10px;
     }
 
         
