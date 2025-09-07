@@ -15,21 +15,21 @@
     
 </head>
 <body>
-    <div class="main-wrapper"><h1>Guestbook✎</h1>
 
 
-        
-
-
+    
+<div class="main-wrapper"><h1>Guestbook✎</h1>
 
 
         
         <!-- drawing canvas -->
         <div class="content-grid">
+            
+            
             <div class="drawbox-section">
 
 
-                                <div class="drawing-tools">
+                <div class="drawing-tools">
                         
                         <!-- Color Palette -->
                         <div class="tool-group">
@@ -62,52 +62,51 @@
                             <img src="assets/icon-clear-trash.webp" alt="Clear" class="tool-icon">
                         </button>
                         </div>    
-                    </div>
+                </div><!-- closes "drawing tools" -->
 
                 
                 <canvas id="drawboxcanvas" width="500" height="500"></canvas>
 
 
                 
-                <div id="submission-form">
-                    <label for="artist-name">NAME (required)</label>
-                    <input type="text" id="artist-name" required placeholder="boogerbear">
-                    
-                    <label for="artist-website">WEBSITE (optional)</label>
-                    <input type="text" id="artist-website" placeholder="https://url.com Please include https://">
-                    
-                    <label for="spam-check">SPAM CHECK🤖🔨</label>
-                    <input type="text" id="spam-check" required placeholder="Type the word 'guestbook' here. ">
-                    
-                    <button id="submit">SUBMIT👍</button>
-                </div>
+                    <div id="submission-form">
+                            <label for="artist-name">NAME (required)</label>
+                            <input type="text" id="artist-name" required placeholder="boogerbear">
+                            
+                            <label for="artist-website">WEBSITE (optional)</label>
+                            <input type="text" id="artist-website" placeholder="https://url.com Please include https://">
+                            
+                            <label for="spam-check">SPAM CHECK🤖🔨</label>
+                            <input type="text" id="spam-check" required placeholder="Type the word 'guestbook' here. ">
+                            
+                            <button id="submit">SUBMIT👍</button>
+                     </div>
                 
                 <p id="status"></p>
-            </div>
-
-
-
+            </div> <!-- closes "drawbox section" -->
 
             
-            <div class="info-section">
-                How to use:
-                <ul>
-                    <li>Draw with your mouse or finger</li>
-                    <li>Move the ⬤ horizontal slider  to adjust the brush size</li>
-                    <li>Type in your name and website (optional) and press SUBMIT</li>
-                </ul>
-                Your drawing will appear in the gallery below, after it is approved by this thing→ ('w' )
-                <p></p>
-                <h3>Please be respectful. <3 Low quality submissions (spam, empty canvas, etc) will be gently held but deleted.</h3>
-               
-            </div>
-        </div>
+                    <div class="info-section">
+                        How to use:
+                        <ul>
+                            <li>Draw with your mouse or finger</li>
+                            <li>Move the ⬤ horizontal slider  to adjust the brush size</li>
+                            <li>Type in your name and website (optional) and press SUBMIT</li>
+                        </ul>
+                        Your drawing will appear in the gallery below, after it is approved by this thing→ ('w' )
+                        <p></p>
+                        <h3>Please be respectful. <3 Low quality submissions (spam, empty canvas, etc) will be gently held but deleted.</h3>
+                    </div>
+            
+        </div><!-- closes "content grid" -->
         
         <h1>Submitted Drawings☻</h1>
-    </div>
-        <div id="gallery">Loading images...</div>
+</div> <!-- closes "main wrapper" -->
+
     
+<div id="gallery">Loading images...</div>
+<script src="drawbox.js"></script>
+
     
-    <script src="drawbox.js"></script>
 </body>
 </html>
