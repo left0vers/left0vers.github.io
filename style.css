@@ -90,7 +90,7 @@ h3 {  font-size: 1em;
             max-width: none;            
             text-align: center;
             background-color: #f9f9f9;
-            overflow: hidden;
+            box-sizing: border-box;
         }
         
         .image-container img {
@@ -130,6 +130,8 @@ h3 {  font-size: 1em;
              width: 500px; /* Same as canvas width */
              max-width: 100%; 
             box-sizing: border-box;
+          margin-left:0;
+          margin-right: auto;
         }
         
         #submission-form label {
