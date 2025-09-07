@@ -375,6 +375,7 @@ input[type="range"]::-moz-range-thumb {
 
     .info-section {
         order: -1;
+      max-width:500px;
     }
 }
 
