@@ -81,6 +81,7 @@ h3 {  font-size: 1em;
             grid-template-columns: repeat(4, 1fr); /* how many columns */
             gap: 15px;
             margin-top: 20px;
+            margin-bottom:40px;
         }
         
         .image-container {
