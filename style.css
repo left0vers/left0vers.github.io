@@ -84,6 +84,7 @@ h3 {  font-size: 1em;
             row-gap: 32px;
             margin-top: 20px;
           max-width:none;
+          with: 100%;
         }
         
         .image-container {
@@ -376,9 +377,6 @@ input[type="range"]::-moz-range-thumb {
         row-gap:20px;
     }
 
-    .gallery-wrapper {
-        padding: 0 10px;
-    }
 
         
        .drawing-tools {
