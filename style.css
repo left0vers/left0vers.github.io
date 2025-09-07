@@ -75,7 +75,7 @@ h3 {  font-size: 1em;
         
         #gallery {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 3 equal columns */
+            grid-template-columns: repeat(4, 1fr); /* how many columns */
             gap: 15px;
             margin-top: 20px;
         }
@@ -84,8 +84,8 @@ h3 {  font-size: 1em;
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 10px;
-                    width: 100%; /* Use full width of grid column */
-                    max-width: none; /* Remove the 200px limit */                
+            width: 100%; 
+            max-width: none;            
             text-align: center;
             background-color: #f9f9f9;
             overflow: hidden;
@@ -125,8 +125,8 @@ h3 {  font-size: 1em;
             border: none;
             border-radius: 5px;
             background-color: #FFC5DB;
-                 width: 500px; /* Same as canvas width */
-                    max-width: 100%; /* Responsive on smaller screens */
+             width: 500px; /* Same as canvas width */
+             max-width: 100%; 
             box-sizing: border-box;
         }
         
@@ -208,7 +208,7 @@ h3 {  font-size: 1em;
     display: flex;
     align-items: center;
     gap: 0;
-    flex-shrink: 1; /* Prevent groups from shrinking too much */
+    flex-shrink: 1;
 }
 
 .tool-group label {
@@ -220,10 +220,10 @@ h3 {  font-size: 1em;
 
 
 
-/* Simple slider customization - bigger cursor, smaller width */
+
 input[type="range"] {
     -webkit-appearance: none;
-    width: 140px; /* Make slider narrower */
+    width: 140px; /* circle cursor width */
     height: 10px;
     background: white;
     outline: none;
@@ -231,20 +231,18 @@ input[type="range"] {
         border-radius: 5px;
 }
 
-/* Bigger cursor for Webkit browsers (Chrome, Safari, Edge) */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 20px; /* Bigger cursor */
-    height: 20px; /* Bigger cursor */
+    width: 20px; 
+    height: 20px;
     background: black;
     border-radius: 50%;
     cursor: pointer;
 }
 
-/* Bigger cursor for Firefox */
 input[type="range"]::-moz-range-thumb {
-    width: 20px; /* Bigger cursor */
-    height: 20px; /* Bigger cursor */
+    width: 20px; 
+    height: 20px;
     background: black;
     border-radius: 50%;
     cursor: pointer;
@@ -270,11 +268,11 @@ input[type="range"]::-moz-range-thumb {
 
 .color-palette {
     display: grid;
-    grid-template-columns: repeat(2, 25px); /* 3 columns */
-    grid-template-rows: repeat(2, 25px);    /* 2 rows */
-    gap: 0;  /* No space between swatches */
-    width: 50px;  /* Force container width */
-    height: 50px; /* Force container height */
+    grid-template-columns: repeat(2, 25px); 
+    grid-template-rows: repeat(2, 25px);   
+    gap: 0; 
+    width: 50px; 
+    height: 50px; 
 }
 
 
@@ -290,14 +288,13 @@ input[type="range"]::-moz-range-thumb {
     height: 25px;
     border: none;
     cursor: pointer;
-    /* Remove border-radius for square swatches with no gaps */
     border-radius: 0;
         display: block;  
 }
 
 .color-btn:hover {
     transform: scale(1.1);
-    z-index: 1; /* Bring hovered button above others */
+    z-index: 1; 
 }
 
 
@@ -316,7 +313,6 @@ input[type="range"]::-moz-range-thumb {
     padding: 2px;
 }
 
-/* Make it smaller on mobile */
 @media (max-width: 600px) {
     .brush-size-input {
         width: 35px;
@@ -329,6 +325,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 
+
 .tool-btn {
     padding: 5px;
     border: 1px solid #ccc;
@@ -336,11 +333,11 @@ input[type="range"]::-moz-range-thumb {
     background-color: white;
     cursor: pointer;
     font-size: 12px;
-    margin-right: -1px;  /* Overlap borders */
+    margin-right: -1px; 
     touch-action: manipulation;
 }
 
-/* Bring hovered/active buttons to front */
+
  .tool-btn:hover,
 .tool-btn.active-tool {
     position: relative;
@@ -352,7 +349,12 @@ input[type="range"]::-moz-range-thumb {
     background-color: #C1C1FF;
 }
 
-/* Make color buttons and other elements smaller on mobile if needed */
+
+
+
+
+
+
 @media (max-width: 600px) {
 
     #gallery {
@@ -362,8 +364,7 @@ input[type="range"]::-moz-range-thumb {
 
         
        .drawing-tools {
-        flex-wrap: wrap; /* Allow wrapping on very small screens */
-    /* justify-content: space-between inherited from main rule */
+        flex-wrap: wrap; 
     }
     
     .tool-group {
@@ -384,7 +385,7 @@ input[type="range"]::-moz-range-thumb {
     }
 
     .halftone-btn {
-        background-size: 6px 10px; /* Double the size */
+        background-size: 6px 10px;
     }
     
     .tool-group label {
@@ -392,7 +393,7 @@ input[type="range"]::-moz-range-thumb {
     }
     
     input[type="range"] {
-        width: 60px; /* Make slider even smaller on mobile */
+        width: 60px; 
      border: 1px solid black;
             
     }
@@ -400,7 +401,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 #drawboxcanvas {
-    touch-action: none; /* Prevents scrolling/zooming on the canvas */
+    touch-action: none; 
 }
 
 
