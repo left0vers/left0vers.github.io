@@ -47,10 +47,20 @@ async function fetchAllImages() {
       gallery.innerHTML = "No images submitted yet.";
       return;
     }
+
+
+      
+    // Approved drawings
+    const approvedRows = rows.filter(row => {
+      const columns = row.split(",");
+      // Check if the "Approved" column has stuff
+      const approvedStatus = columns[4] ? columns[4].trim().replace(/"/g, "") : "";
+      return approvedStatus.toLowerCase() !== "" && approvedStatus.toLowerCase() !== "no";
+    });
     
-    // Show all the images
-    rows.reverse().forEach((row, index) => {
-      console.log(`Processing row ${index}:`, row);
+    // Show all approved images (no limit)
+    approvedRows.reverse().forEach((row, index) => {
+      console.log(`Processing approved row ${index}:`, row);
       
       const columns = row.split(",");
       console.log("Columns:", columns);
@@ -87,21 +97,21 @@ async function fetchAllImages() {
                     <p class="timestamp">${timestamp}</p>
                 `;
         gallery.appendChild(div);
-        console.log("Added image to gallery");
+        console.log("Added approve image to gallery");
       }
     });
     
 
 
     
-    const totalImages = gallery.children.length;
-    if (totalImages > 0) {
+    const totalApproved = gallery.children.length;
+    if (totalApproved > 0) {
       const countDiv = document.createElement("div");
       countDiv.style.gridColumn = "1 / -1";
       countDiv.style.textAlign = "center";
       countDiv.style.marginTop = "40px";
       countDiv.style.opacity = "0.6";
-      countDiv.innerHTML = `<p>Showing all ${totalImages} drawings</p>`;
+      countDiv.innerHTML = `<p>Showing all ${totalApproved} approved drawings</p>`;
       gallery.appendChild(countDiv);
     }
     
