@@ -80,7 +80,43 @@ a {color: black; text-decoration:underline;}
             width: 500px;
             max-width:100%;
         }
-        
+
+
+
+
+      .section-header-grid {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 20px;
+          align-items: start;
+          margin-bottom: 60px;
+      }
+      
+      .section-title {
+          min-width: 0;
+      }
+      
+      .section-image {
+          width: 128px;
+          height: 128px;
+          flex-shrink: 0;
+      }
+      
+      @media (max-width: 900px) {
+          .section-header-grid {
+              grid-template-columns: 1fr;
+              gap: 15px;
+          }
+          
+          .section-image {
+              justify-self: end;
+          }
+      }
+
+
+
+
+
         #gallery {
             display: grid;
             padding: 0 20px;
