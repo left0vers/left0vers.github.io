@@ -403,21 +403,25 @@ async function fetchImages() {
 
 	  
     // Limit to 12 most recent images
-	const recentRows = rows.reverse().slice(0, 12);
-
-	recentRows.forEach((row, index) => {
-
-
-	
-      console.log(`Processing row ${index}:`, row);
-      
-      const columns = row.split(",");
-      console.log("Columns:", columns);
-      
-      if (columns.length < 2) {
-        console.log("Skipping row - not enough columns");
-        return;
-      }
+	    const approvedRows = rows.filter(row => {
+	      const columns = row.split(",");
+	      // Check if the "Approved" column (index 4) has any value (x, yes, approved, etc.)
+	      const approvedStatus = columns[4] ? columns[4].trim().replace(/"/g, "") : "";
+	      return approvedStatus.toLowerCase() !== "" && approvedStatus.toLowerCase() !== "no";
+	    });
+	    
+	    const recentApprovedRows = approvedRows.reverse().slice(0, 12);
+	    
+	    recentApprovedRows.forEach((row, index) => {
+	      console.log(`Processing approved row ${index}:`, row);
+	      
+	      const columns = row.split(",");
+	      console.log("Columns:", columns);
+	      
+	      if (columns.length < 2) {
+	        console.log("Skipping row - not enough columns");
+	        return;
+	     }
 
       const rawTimestamp = columns[0].trim();
 		// Timestap formatting "2025.08.26"
@@ -447,29 +451,29 @@ async function fetchImages() {
                     <p class="timestamp">${timestamp}</p>
                 `;
         gallery.appendChild(div);
-        console.log("Added image to gallery");
+        console.log("Sent!");
       }
     });
 
 
-	// Add a note about viewing more in archive if there are more than 12 total
-	const totalImages = rows.length;
-	if (totalImages > 12) {
-	  const moreDiv = document.createElement("div");
-	  moreDiv.style.gridColumn = "1 / -1";
-	  moreDiv.style.textAlign = "center";
-	  moreDiv.style.marginTop = "40px";
-	  moreDiv.innerHTML = `<p>[ <a href="/archive">View Archive (${totalImages})</a> ]</p>`;
-	  gallery.appendChild(moreDiv);
-	}
-
 
 	  
+    const totalApproved = approvedRows.length;
+    if (totalApproved > 12) {
+      const moreDiv = document.createElement("div");
+      moreDiv.style.gridColumn = "1 / -1";
+      moreDiv.style.textAlign = "center";
+      moreDiv.style.marginTop = "40px";
+      moreDiv.innerHTML = `<p><a href="/archive">View all ${totalApproved} drawings in the archive →</a></p>`;
+      gallery.appendChild(moreDiv);
+    }
+    
   } catch (error) {
     console.error("Error fetching images:", error);
     document.getElementById("gallery").textContent = "Failed to load images.";
   }
 }
+
 
 fetchImages();
 
@@ -505,6 +509,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); 
 });
+
 
 
 
