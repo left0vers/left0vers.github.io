@@ -399,8 +399,16 @@ async function fetchImages() {
       gallery.innerHTML = "No images submitted yet.";
       return;
     }
-    
-    rows.reverse().forEach((row, index) => {
+
+
+	  
+    // Limit to 12 most recent images
+	const recentRows = rows.reverse().slice(0, 12);
+
+	recentRows.forEach((row, index) => {
+
+
+	
       console.log(`Processing row ${index}:`, row);
       
       const columns = row.split(",");
@@ -442,6 +450,21 @@ async function fetchImages() {
         console.log("Added image to gallery");
       }
     });
+
+
+	// Add a note about viewing more in archive if there are more than 12 total
+	const totalImages = rows.length;
+	if (totalImages > 12) {
+	  const moreDiv = document.createElement("div");
+	  moreDiv.style.gridColumn = "1 / -1";
+	  moreDiv.style.textAlign = "center";
+	  moreDiv.style.marginTop = "40px";
+	  moreDiv.innerHTML = `<p>[ <a href="/archive">View Archive (${totalImages})</a> ]</p>`;
+	  gallery.appendChild(moreDiv);
+	}
+
+
+	  
   } catch (error) {
     console.error("Error fetching images:", error);
     document.getElementById("gallery").textContent = "Failed to load images.";
@@ -482,6 +505,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); 
 });
+
 
 
 
