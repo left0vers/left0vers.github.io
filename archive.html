@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    
+    <title>archive✎</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="main-wrapper">
+    <h1><span style="color: #ff0069; font-style:italic;">LEFTOVERS</span> / ARCHIVE✎</h1>
+    
+    <p><< <a href="/">BACK TO GUESTBOOK</a> | <a href="https://luckycavity.tumblr.com/">BACK TO BLOG</a></p>
+    
+    <h2>SUBMITTED DRAWINGS</h2>
+</div>
+
+<div id="gallery">Loading all images...</div>
+
+<script>
+  
+const GOOGLE_SHEET_ID = "11w2LvZuljHliPFVvejbYIbyd_mXpcWefKuzUa8cVbnI";
+const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID + "/export?format=csv";
+
+async function fetchAllImages() {
+  try {
+    console.log("Fetching from URL:", GOOGLE_SHEET_URL);
+    const response = await fetch(GOOGLE_SHEET_URL);
+    console.log("Response status:", response.status);
+    
+    const csvText = await response.text();
+    console.log("CSV data received:", csvText);
+    
+    const rows = csvText.split("\n").slice(1);
+    console.log("Rows after splitting:", rows);
+
+    const gallery = document.getElementById("gallery");
+    gallery.innerHTML = "";
+    
+    if (rows.length === 0 || (rows.length === 1 && rows[0].trim() === "")) {
+      console.log("No data rows found");
+      gallery.innerHTML = "No images submitted yet.";
+      return;
+    }
+    
+    // Show all the images
+    rows.reverse().forEach((row, index) => {
+      console.log(`Processing row ${index}:`, row);
+      
+      const columns = row.split(",");
+      console.log("Columns:", columns);
+      
+      if (columns.length < 2) {
+        console.log("Skipping row - not enough columns");
+        return;
+      }
+
+      const rawTimestamp = columns[0].trim();
+      // Timestamp formatting "2025.08.26"
+      const date = new Date(rawTimestamp);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const timestamp = `${year}.${month}.${day}`;
+
+      const imgUrl = columns[1].trim().replace(/"/g, "");
+      const artistName = columns[2] ? columns[2].trim().replace(/"/g, "") : "Anonymous";
+      const artistWebsite = columns[3] ? columns[3].trim().replace(/"/g, "") : "";
+      
+      if (imgUrl.startsWith("http")) {
+        const div = document.createElement("div");
+        div.classList.add("image-container");
+
+        let artistLine = artistName;
+        if (artistWebsite && artistWebsite.startsWith("http")) {
+          artistLine += ` // <a href="${artistWebsite}" target="_blank">website</a>`;
+        }
+
+        div.innerHTML = `
+                    <img src="${imgUrl}" alt="drawing by ${artistName}">
+                    <p class="artist-line">${artistLine}</p>
+                    <p class="timestamp">${timestamp}</p>
+                `;
+        gallery.appendChild(div);
+        console.log("Added image to gallery");
+      }
+    });
+    
+
+
+    
+    const totalImages = gallery.children.length;
+    if (totalImages > 0) {
+      const countDiv = document.createElement("div");
+      countDiv.style.gridColumn = "1 / -1";
+      countDiv.style.textAlign = "center";
+      countDiv.style.marginTop = "40px";
+      countDiv.style.opacity = "0.6";
+      countDiv.innerHTML = `<p>Showing all ${totalImages} drawings</p>`;
+      gallery.appendChild(countDiv);
+    }
+    
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    document.getElementById("gallery").textContent = "Failed to load images.";
+  }
+}
+
+
+
+  
+fetchAllImages();
+</script>
+
+<div class="main-wrapper">
+    <p style="text-align: center; margin-top:40px;"> 
+        <h3>♥︎ Make your own <a href="https://drawbox.nekoweb.org/">DRAWBOX</a></h3>
+    </p>
+</div>
+
+</body>
+</html>
