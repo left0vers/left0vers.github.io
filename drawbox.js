@@ -407,7 +407,7 @@ async function fetchImages() {
 	      const columns = row.split(",");
 	      // Check if the "Approved" column (index 4) has any value (x, yes, approved, etc.)
 	      const approvedStatus = columns[5] ? columns[5].trim().replace(/"/g, "") : "";
-	      return approvedStatus.toLowerCase() !== "" && approvedStatus.toLowerCase() !== "no";
+	      return approvedStatus !== "" && approvedStatus.toLowerCase() !== "no";
 	    });
 	    
 	    const recentApprovedRows = approvedRows.reverse().slice(0, 12);
@@ -509,6 +509,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); 
 });
+
 
 
 
