@@ -119,9 +119,9 @@ a {color: black; text-decoration:underline;}
 
         #gallery {
             display: grid;
-            padding: 0 20px;
+            padding: 0 50px;
             grid-template-columns: repeat(4, 1fr); /* how many columns */
-            column-gap: 40px; /* gap between each gallery item col*/
+            column-gap: 20px; /* gap between each gallery item col*/
             row-gap: 80px; /* gap between each gallery item row*/
             margin-top: 20px;
           max-width:none;
