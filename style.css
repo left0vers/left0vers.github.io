@@ -97,8 +97,8 @@ a {color: black; text-decoration:underline;}
       }
       
       .section-image {
-          width: 128px;
-          height: 128px;
+          width: 176px;
+          height: auto;
           flex-shrink: 0;
       }
       
