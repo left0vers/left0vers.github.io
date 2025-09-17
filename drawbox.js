@@ -53,7 +53,7 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 let restore_array = [];
 let start_index = -1;
 let stroke_color = "black";
-let stroke_width = "18";   /*brush starting size - should match "stroke_width = this.value" in html*/
+let stroke_width = "8";   /*brush starting size - should match "stroke_width = this.value" in html*/
 let is_drawing = false;
 
 let lastX = 0;
@@ -516,6 +516,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); 
 });
+
 
 
 
