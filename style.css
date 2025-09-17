@@ -26,6 +26,18 @@ body {
 }
 
 
+::selection {
+  background-color: #FFC5DB; /* highlight color */
+  color: #7F0031;           
+}
+
+::-moz-selection { /* For Firefox */
+  background-color: #FFC5DB;
+  color: #7F0031;
+}
+
+
+
 h1
 {font-size:2.4em;
 font-weight: normal;
