@@ -55,7 +55,7 @@ async function fetchAllImages() {
       const columns = row.split(",");
       // Check if the "Approved" column has stuff
       const approvedStatus = columns[5] ? columns[5].trim().replace(/"/g, "") : "";
-      return approvedStatus.toLowerCase() !== "" && approvedStatus.toLowerCase() !== "no";
+      return approvedStatus !== "" && approvedStatus.toLowerCase() !== "no";
     });
     
     // Show all approved images (no limit)
