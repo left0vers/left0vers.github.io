@@ -96,8 +96,12 @@ function start(event) {
   const x = getX(event);
   const y = getY(event);
   
-  lastX = x;
-  lastY = y;
+  if (stroke_color === HALFTONE_COLOR) {
+    drawHalftonePath(x, y, x, y, stroke_width);
+  } else {
+    context.fillStyle = stroke_color;
+    context.fillRect(x - stroke_width/2, y - stroke_width/2, stroke_width, stroke_width);
+  }
   
   context.beginPath();
   context.moveTo(x, y);
@@ -516,6 +520,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); 
 });
+
 
 
 
