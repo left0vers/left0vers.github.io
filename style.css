@@ -103,7 +103,7 @@ a:hover{color:#ff0069;}
           grid-template-columns: 1fr auto;
           gap: 20px;
           align-items: start;
-          margin-bottom: 60px;
+          margin-bottom: 20px;
       }
       
       .section-title {
