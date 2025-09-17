@@ -459,15 +459,22 @@ async function fetchImages() {
 
 	  
     const totalApproved = approvedRows.length;
-    if (totalApproved > 12) {
-      const moreDiv = document.createElement("div");
-      moreDiv.style.gridColumn = "1 / -1";
-      moreDiv.style.textAlign = "center";
-      moreDiv.style.marginTop = "40px";
-      moreDiv.innerHTML = `<p><a href="/archive">View all ${totalApproved} drawings in the archive →</a></p>`;
-      gallery.appendChild(moreDiv);
-    }
-    
+	  
+	const archiveLink = document.querySelector('a[href="/archive"]');
+	if (archiveLink && totalApproved > 0) {
+	  archiveLink.textContent = `View Archive (${totalApproved})`;
+	}
+	
+	if (totalApproved > 12) {
+	  const moreDiv = document.createElement("div");
+	  moreDiv.style.gridColumn = "1 / -1";
+	  moreDiv.style.textAlign = "center";
+	  moreDiv.style.marginTop = "40px";
+	  moreDiv.innerHTML = `<p><a href="/archive">View all ${totalApproved} drawings in the archive →</a></p>`;
+	  gallery.appendChild(moreDiv);
+	}
+
+	  
   } catch (error) {
     console.error("Error fetching images:", error);
     document.getElementById("gallery").textContent = "Failed to load images.";
@@ -509,6 +516,7 @@ function setEraseMode() {
 document.addEventListener("DOMContentLoaded", function() {
     setDrawMode(); 
 });
+
 
 
 
